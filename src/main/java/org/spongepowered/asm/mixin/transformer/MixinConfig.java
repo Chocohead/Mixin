@@ -1019,6 +1019,14 @@ final class MixinConfig implements Comparable<MixinConfig>, IMixinConfig {
     public IMixinConfigPlugin getPlugin() {
         return this.plugin.get();
     }
+    
+    /**
+     * Returns a mutable view of the targets set, used to pass the targets to
+     * config plugins 
+     */
+    public Set<String> getTargetsSet() {
+        return this.mixinMapping.keySet();
+    }
 
     /* (non-Javadoc)
      * @see org.spongepowered.asm.mixin.transformer.IMixinConfig#getTargets()
