@@ -381,7 +381,7 @@ task stagingProguardJar(type: proguard.gradle.ProGuardTask, dependsOn: stagingJa
     injars stagingJar.archiveFile
     outjars proguardFile
     configuration file("proguard.conf")
-	printusage file("$buildDir/lost.txt")
+	printusage file("$buildDir/libs/lost.txt")
 }
 build.dependsOn stagingProguardJar
 
