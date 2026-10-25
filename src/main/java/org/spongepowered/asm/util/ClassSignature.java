@@ -209,7 +209,7 @@ public class ClassSignature {
         /**
          * Class bounds on this token, null if no bounds have been set
          */
-        private List<Token> classBound;
+        private List<IToken> classBound;
         
         /**
          * Interface bounds on this token, null if no bounds have been set
@@ -292,9 +292,9 @@ public class ClassSignature {
             return this.setSymbol(wildcard);
         }
         
-        private List<Token> getClassBound() {
+        private List<IToken> getClassBound() {
             if (this.classBound == null) {
-                this.classBound = new ArrayList<Token>();
+                this.classBound = new ArrayList<IToken>();
             }
             return this.classBound;
         }
@@ -411,6 +411,11 @@ public class ClassSignature {
             return token;
         }
 
+        Token addClassBound(TokenHandle token) {
+            this.getClassBound().add(token);
+            return token.asToken();
+        }
+
         /**
          * Add a class bound to this symbol
          * 
@@ -455,7 +460,7 @@ public class ClassSignature {
             }
             
             if (this.classBound != null) {
-                for (Token token : this.classBound) {
+                for (IToken token : this.classBound) {
                     sb.append(token.asType());
                 }
             }
@@ -849,6 +854,14 @@ public class ClassSignature {
                 this.classBound = classBound;
             }
             
+            @Override
+            public void visitTypeVariable(String name) {
+                TokenHandle token = ClassSignature.this.getType(name);
+                //JLS 4.4 says this.classBound must be false at this point
+                assert !this.classBound: "Type " + name + " used as interface?";
+                this.token = this.type.token.addClassBound(token);
+            }
+
             @Override
             public void visitClassType(String name) {
                 this.token = this.type.token.addBound(name, this.classBound);
