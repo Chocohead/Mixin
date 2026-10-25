@@ -858,7 +858,7 @@ public class ClassSignature {
             public void visitTypeVariable(String name) {
                 TokenHandle token = ClassSignature.this.getType(name);
                 //JLS 4.4 says this.classBound must be false at this point
-                assert !this.classBound: "Type " + name + " used as interface?";
+                assert !this.classBound;
                 this.token = this.type.token.addClassBound(token);
             }
 
