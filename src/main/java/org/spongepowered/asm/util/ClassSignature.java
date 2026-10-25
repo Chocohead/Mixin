@@ -159,7 +159,7 @@ public class ClassSignature {
          * @param array arrayness flag
          * @return this token
          */
-        public abstract IToken setArray(byte array);
+        public abstract IToken setArray(int array);
         
         /**
          * Set the wildcard on this token, only accepted if one of the valid
@@ -194,7 +194,7 @@ public class ClassSignature {
         /**
          * Array depth of this token
          */
-        private byte array;
+        private int array;
         
         /**
          * Symbol (wildcard, unbound or base type)
@@ -279,7 +279,7 @@ public class ClassSignature {
         }
         
         @Override
-        public IToken setArray(byte array) {
+        public IToken setArray(int array) {
             this.array = array;
             return this;
         }
@@ -559,7 +559,7 @@ public class ClassSignature {
         /**
          * Array depth of this handle
          */
-        byte array;
+        int array;
         
         /**
          * Wildcard for this handle
@@ -576,10 +576,10 @@ public class ClassSignature {
         
         /* (non-Javadoc)
          * @see org.spongepowered.asm.util.ClassSignature.IToken
-         *      #setArray(byte)
+         *      #setArray(int)
          */
         @Override
-        public IToken setArray(byte array) {
+        public IToken setArray(int array) {
             this.array = array;
             return this;
         }
@@ -680,7 +680,7 @@ public class ClassSignature {
             /**
              * Array depth of the next element to be appended
              */
-            private byte array;
+            private int array;
     
             public Token getToken() {
                 if (this.token == null) {
@@ -693,8 +693,8 @@ public class ClassSignature {
                 this.array++;
             }
     
-            private byte getArray() {
-                byte array = this.array;
+            private int getArray() {
+                int array = this.array;
                 this.array = 0;
                 return array;
             }
